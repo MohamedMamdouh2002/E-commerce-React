@@ -4,6 +4,9 @@ import { useFormik } from 'formik'
 import * as Yup from "yup"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { BallTriangle } from 'react-loader-spinner'
+import {Helmet} from "react-helmet";
+
 
 
 
@@ -46,6 +49,11 @@ let validationSchema=Yup.object({
     onSubmit:sendData
   })
   return <>
+   <Helmet>
+                <meta charSet="utf-8" />
+                <title>Register</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
   <div className="container w-75 my-5">
     {error?<div className='alert alert-danger'>{error}</div>:''}
     <h3>Register Now :</h3>
@@ -112,8 +120,17 @@ className=' form-control'
 />
 {formik.errors.rePassword &&formik.touched.rePassword ? <div className='alert alert-danger'>{formik.errors.rePassword}</div>:""}
 
-{isLoading?<button  className='btn btn-success  my-5' type=' submit'>
-  <i className='fas fa-spider fa-spin'></i>
+{isLoading?<button  className='btn btn-success  opacity-75 my-5' type=' submit'>
+<BallTriangle
+  height={30}
+  width={30}
+  radius={5}
+  color="#fff"
+  ariaLabel="ball-triangle-loading"
+  wrapperClass={{}}
+  wrapperStyle=""
+  visible={true}
+/>
 </button>:
 <button disabled={!(formik.isValid&&formik.dirty)} className='btn btn-success  my-5' type=' submit'>Register</button>
 }

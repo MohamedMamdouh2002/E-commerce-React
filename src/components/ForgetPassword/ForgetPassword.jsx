@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react'
-import style from "./Login.module.css"
 import { useFormik } from 'formik'
 import * as Yup from "yup"
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { CirclesWithBar } from 'react-loader-spinner'
 import { UserContext } from '../../Contexts/UserContext'
-
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 import {Helmet} from "react-helmet";
 
 
 
-export default function Login() {
+export default function ForgetPassword() {
   let{setUserToken}=useContext(UserContext)
     let navigate =useNavigate()
   const [error,setError]=useState(null)
@@ -19,34 +19,28 @@ export default function Login() {
 
  async function sendData(values){
   setisLoading(true)
-  let {data}=await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",values)
+  let {data}=await axios.post("https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords",values)
+  
   .catch((err)=>{setisLoading(false)
     setError(err.response.data.message)
   })
- if(data.message==="success"){
   setisLoading(false)
-  localStorage.setItem("userToken",data.token)
+  // console.log(data);
+ if(data.statusMsg==="success"){
+  setisLoading(false)
   setUserToken(data.token)
-  navigate('/')
+  navigate('/VerifyCode')
  }
-  }
-  function ForgetPassword() {
-    navigate('/forgetPassword')
-    
   }
 
 let validationSchema=Yup.object({
   email:Yup.string().email("email format  is not valid").required("Email is required"),
-  password:Yup.string().matches(/^[A-Z][a-z0-9]{5,25}/,"password is not Valid").required("password is required"),
 })
 
 
   let formik =useFormik({
     initialValues:{
-
       email:"",
-      password:"",
-      
     },
     validationSchema,
     onSubmit:sendData
@@ -54,17 +48,19 @@ let validationSchema=Yup.object({
   return <>
     <Helmet>
                  <meta charSet="utf-8" />
-                 <title>Log in</title>
+                 <title>Forget Password</title>
                  <link rel="canonical" href="http://mysite.com/example" />
              </Helmet>
   <div className="container w-75 my-5">
     {error?<div className='alert alert-danger'>{error}</div>:''}
-    <h3>Login Now :</h3>
+    <h3>reset your account password
+
+</h3>
 
 <form onSubmit={formik.handleSubmit}>
 
-<label htmlFor="email">Email :</label>
-<input type="email"
+<label htmlFor="email"></label>
+{/* <input type="email"
 name='email'
 
  className=' form-control'
@@ -73,24 +69,14 @@ name='email'
   values={formik.values.email}
   id='email'
 
-/>
+/> */}
+ <FloatingLabel controlId="floatingInput" label="Email" className="mb-3" >
+          <Form.Control name='email' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} type="email" placeholder="name@example.com" />
+        </FloatingLabel>
 {formik.errors.email &&formik.touched.email? <div className='alert alert-danger'>{formik.errors.email}</div>:""}
 
 
 
-<label htmlFor="Password">Password :</label>
-<input type="password" 
-name='password'
-
-className=' form-control'
-  onChange={formik.handleChange}
-  onBlur={formik.handleBlur}
-  values={formik.values.password}
-  id='Password'
-
-/>
-<h3 onClick={()=>ForgetPassword()}>forget Password?  </h3>
-{formik.errors.password &&formik.touched.password? <div className='alert alert-danger'>{formik.errors.password}</div>:""}
 
 
 {isLoading?<button  className='btn btn-success  my-5' type=' submit'>
@@ -107,7 +93,7 @@ className=' form-control'
   ariaLabel='circles-with-bar-loading'
 />
 </button>:
-<button disabled={!(formik.isValid&&formik.dirty)} className='btn btn-success  my-5' type=' submit'>Login </button>
+<button disabled={!(formik.isValid&&formik.dirty)} className='btn btn-success  my-5' type=' submit'>Verify </button>
 }
 
 </form>

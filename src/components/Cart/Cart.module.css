@@ -1,1 +1,7 @@
-.Cart {}
+.marg {
+    position: fixed;
+    top: 58.49px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
