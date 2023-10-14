@@ -89,7 +89,7 @@ className=' form-control'
   id='Password'
 
 />
-<h3 onClick={()=>ForgetPassword()}>forget Password?  </h3>
+<h6 className='text-main my-1 cursor-pointer' onClick={()=>ForgetPassword()}>forget Password?  </h6>
 {formik.errors.password &&formik.touched.password? <div className='alert alert-danger'>{formik.errors.password}</div>:""}
 
 

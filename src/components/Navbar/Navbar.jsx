@@ -41,7 +41,7 @@ if (localStorage.getItem("userToken")) {
           <Link className="nav-link" to="">Home </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="cart">Cart{numOfCartItems}</Link>
+          <Link className="nav-link" to="cart">Cart</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="wishList">WishList</Link>
@@ -74,16 +74,25 @@ if (localStorage.getItem("userToken")) {
         </li>
 
 
-{userToken?  <li className="nav-item">
-          <a className="nav-link" onClick={
+{userToken?<>
+  <li className='nav-item position-relative'>
+          <Link className='nav-link fw-bolder' to='cart'>
+            <i className='fa-solid fa-cart-shopping fs-3'></i>
+            <div className='badge position-absolute text-white top-0 end-0 bg-main'>{numOfCartItems}</div>
+          </Link>
+        </li>
+    <li className="nav-item">
+          <a className="nav-link cursor-pointer" onClick={
             ()=>{
-
+              
               localStorage.removeItem("userToken")
-            setUserToken(null)
-            nav('/Login')
-          }
+              setUserToken(null)
+              nav('/Login')
+            }
           }>Log out</a>
-        </li> :
+        </li>
+            </>
+         :
         <>
 
         <li className="nav-item">
