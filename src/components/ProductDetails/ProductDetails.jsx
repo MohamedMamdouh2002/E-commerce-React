@@ -46,16 +46,17 @@ return <>
   <div className="">
   <Slider {...settings}>
 
-    <img src={ProDetails.imageCover} className='w-100 ' alt="" />
-  </Slider>
+  {data?.data.data.images.map((imgSrc)=>(
+            <img src={imgSrc} alt="" />
+          ))}  </Slider>
   </div>
 </div>
 <div className="col-md-8">
   <div className="">
-    <h2 className='h5'>{ProDetails.title}</h2>
-    <p className='h5'>{ProDetails.description}</p>
-    <p className='h5 text-main'>{ProDetails.category?.name}</p>
-    <p className='h5'>{ProDetails.price}</p>
+    <h2 className='h5'>{data?.data.data.title}</h2>
+    <p className='h5'>{data?.data.data.description}</p>
+    <p className='h5 text-main'>{data?.data.data.category?.name}</p>
+    <p className='h5'>{data?.data.data.price}</p>
     <div className=" d-flex justify-content-between">
 
     <p className='h5'> ratingsQuantity :{ProDetails.ratingsQuantity}</p>

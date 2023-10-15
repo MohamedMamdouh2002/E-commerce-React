@@ -27,6 +27,6 @@ export default function Layout() {
       </Offline>
   </div>
 </div>
-<Footer/>
+{/* <Footer/> */}
   </>
 }

@@ -109,7 +109,6 @@ export default function FeaturedProducts() {
    if(search==""){
     return product
    }
-  
    else if
    (search && product.title.toLowerCase().includes(search.toLowerCase())){
     return product
